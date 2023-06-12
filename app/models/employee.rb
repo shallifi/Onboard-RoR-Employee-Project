@@ -3,9 +3,11 @@ class Employee < ApplicationRecord
 
     belongs_to :agency
     belongs_to :department
+    belongs_to :office
 
     validates :agency, presence: true
     validates :department, presence: true
+    validates :office, presence: true
 
     def full_name
         "#{self.first_name} #{self.last_name}"
