@@ -9,7 +9,7 @@ class OfficesController < ApplicationController
         
         
         
-        render json: @offices
+        render json: @offices, only: [:id, :office_name, :address, :office_phone]
     end
     
 
