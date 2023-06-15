@@ -4,6 +4,7 @@ class Employee < ApplicationRecord
     belongs_to :agency
     belongs_to :department
     belongs_to :office
+    has_and_belongs_to_many :needs
 
     validates :agency, presence: true
     validates :department, presence: true
