@@ -1,5 +1,5 @@
 class Employee < ApplicationRecord
-    # before_action :set_employee, only: [:show]
+
 
     belongs_to :agency
     belongs_to :department

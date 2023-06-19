@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+    before_action :set_employee, only: [:show]
 
     def index
         @employees = Employee.all
@@ -10,11 +11,12 @@ class EmployeesController < ApplicationController
     end
 
     def create
-        @employee = Employee.create(employee_params)
+        # puts employee_params.inspect
+        @employee = Employee.new(employee_params)
         
         if @employee.save
-            needs = Need.where(id: employee_params[:need_ids])
-            # @employee.needs << Need.find(employee_params[:need_ids])
+            needs = Need.where(id: params[:need_ids]) #.pluck(:id)
+            # puts needs.inspect
             @employee.needs << needs
             render json: @employee, status: :created
         else
