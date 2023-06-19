@@ -17,7 +17,7 @@ class TitlesController < ApplicationController
         render json: @titles, only: [:id, :agency_id, :title_name]
     end
 
-    # def index
+    # def index /titles/:id
     def show
         @title = Title.find(params[:id])
         render json: @title, only: [:id, :title_name]
