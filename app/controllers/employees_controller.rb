@@ -13,6 +13,7 @@ class EmployeesController < ApplicationController
     def create
         # puts employee_params.inspect
         @employee = Employee.new(employee_params)
+        # @employee.supervisor = false # set default value ////////
         
         if @employee.save
             if params[:title_id].present? && Title.exists?(params[:title_id])
