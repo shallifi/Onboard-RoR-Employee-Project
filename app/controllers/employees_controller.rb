@@ -11,7 +11,7 @@ class EmployeesController < ApplicationController
     end
 
     def create
-        # puts employee_params.inspect
+        puts employee_params.inspect
         @employee = Employee.new(employee_params)
         # @employee.supervisor = false # set default value ////////
         
@@ -39,7 +39,7 @@ class EmployeesController < ApplicationController
     end
 
     def employee_params
-        params.require(:employee).permit(:first_name, :last_name, :new_to_scc, :supervisor,:driving_for_position, :transporting_children, :attending_preservice, :start_date , :badge_photo, :agency_id, :department_id, :office_id, :extension, :additional_info,:title_id, need_ids: [])
+        params.require(:employee).permit(:first_name, :last_name, :new_to_scc, :supervisor, :employee_id, :driving_for_position, :transporting_children, :attending_preservice, :start_date , :badge_photo, :agency_id, :department_id, :office_id, :extension, :additional_info,:title_id, need_ids: [])
     end
 
 
