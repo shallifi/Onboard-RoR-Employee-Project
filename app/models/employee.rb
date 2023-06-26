@@ -6,6 +6,8 @@ class Employee < ApplicationRecord
     belongs_to :office
     belongs_to :title
     has_and_belongs_to_many :needs, join_table: :employees_needs
+    belongs_to :employee, optional: true
+    has_many :subordinates, class_name: 'Employee', foreign_key: 'employee_id'
 
     validates :agency, presence: true
     validates :department, presence: true
