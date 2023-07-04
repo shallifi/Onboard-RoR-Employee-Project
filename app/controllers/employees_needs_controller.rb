@@ -12,6 +12,13 @@ class EmployeesNeedsController < ApplicationController
         render json: employee.needs, only: [:id, :need_name]
     end
 
+    def update
+        employee = Employee.find(params[:employee_id])
+        need = Need.find(params[:need_id])
+        employee.needs << need
+        render json: employee.needs, only: [:id, :need_name]
+    end
+
     def destroy
         employee = Employee.find(params[:employee_id])
         need = Need.find(params[:need_id])
