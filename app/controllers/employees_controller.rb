@@ -16,15 +16,17 @@ class EmployeesController < ApplicationController
         # @employee.supervisor = false # set default value ////////
         
         if @employee.save
-            if params[:title_id].present? && Title.exists?(params[:title_id])
-                @employee.update(title_id: params[:title_id])
-            else
-                puts "Title ID is blank or invalid: #{params[:title_id]}"
-            end
-            needs = Need.where(id: params[:need_ids]) #.pluck(:id)
-            # puts needs.inspect
-            @employee.needs << needs
+            update_title_and_needs
             render json: @employee, status: :created
+            # if params[:title_id].present? && Title.exists?(params[:title_id])
+            #     @employee.update(title_id: params[:title_id])
+            # else
+            #     puts "Title ID is blank or invalid: #{params[:title_id]}"
+            # end
+            # needs = Need.where(id: params[:need_ids]) #.pluck(:id)
+            # # puts needs.inspect
+            # @employee.needs << needs
+            # render json: @employee, status: :created
         else
             # render json: @employee.errors, status: :unprocessable_entity
             render json: {errors: @employee.errors.full_messages}, status: :unprocessable_entity
