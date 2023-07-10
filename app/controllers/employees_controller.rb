@@ -33,17 +33,19 @@ class EmployeesController < ApplicationController
     end
 
     def update
-        @employee = Employee.find(params[:id])
+        # @employee = Employee.find(params[:id])
         if @employee.update(employee_params)
-            if params[:title_id].present? && Title.exists?(params[:title_id])
-                @employee.update(title_id: params[:title_id])
-            else
-                puts "Title ID is blank or invalid: #{params[:title_id]}"
-            end
-            needs = Need.where(id: params[:need_ids]) #.pluck(:id)
-            # puts needs.inspect
-            @employee.needs << needs
-            render json: @employee, status: :created
+            update_title_and_needs
+            render json: @employee, status: :ok
+            # if params[:title_id].present? && Title.exists?(params[:title_id])
+            #     @employee.update(title_id: params[:title_id])
+            # else
+            #     puts "Title ID is blank or invalid: #{params[:title_id]}"
+            # end
+            # needs = Need.where(id: params[:need_ids]) #.pluck(:id)
+            # # puts needs.inspect
+            # @employee.needs << needs
+            # render json: @employee, status: :created
         else
             # render json: @employee, status: :unprocessable_entity
             render json: {errors: @employee.errors.full_messages}, status: :unprocessable_entity
@@ -61,5 +63,15 @@ class EmployeesController < ApplicationController
         params.require(:employee).permit(:first_name, :last_name, :new_to_scc, :supervisor, :employee_id, :driving_for_position, :transporting_children, :attending_preservice, :start_date , :badge_photo, :agency_id, :department_id, :office_id, :extension, :additional_info,:title_id, need_ids: [])
     end
 
+    def update_title_and_needs
+        if params[:title_id].present? && Title.exists?(params[:title_id])
+          @employee.update(title_id: params[:title_id])
+        else
+          puts "Title ID is blank or invalid: #{params[:title_id]}"
+        end
+    
+        needs = Need.where(id: params[:need_ids])
+        @employee.needs << needs
+      end
 
 end
