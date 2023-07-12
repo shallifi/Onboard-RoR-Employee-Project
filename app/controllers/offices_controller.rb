@@ -6,8 +6,7 @@ class OfficesController < ApplicationController
         if params[:search].present?
             @offices = @offices.where("office_name LIKE ?", "%#{params[:search]}%")
         end
-        
-        
+                
         
         render json: @offices, only: [:id, :office_name, :address, :office_phone]
     end

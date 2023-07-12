@@ -2,7 +2,6 @@ class NeedsController < ApplicationController
 
     def index 
         
-
         if params[:employee_id].present?
             employee = Employee.find(params[:employee_id])
             @needs = employee.needs
